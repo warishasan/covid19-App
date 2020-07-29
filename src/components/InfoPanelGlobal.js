@@ -2,8 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {GlobalContext} from '../GlobalState.js';
 import {Pie} from 'react-chartjs-2';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +21,18 @@ const useStyles = makeStyles((theme) => ({
   pie:{
     marginTop: 50,
     textAlign: 'center'
-  }
+  },
+  loading: {
+    
+    padding: "20px",
+    marginRight: "500px",
+    marginLeft: "500px",
+    textAlign: "center",
+  },
+  title: {
+    color: '#3f51b5',
+    textTransform: 'uppercase'
+}
 }));
 
 
@@ -36,6 +47,10 @@ export default function InfoPanelGlobal() {
 
   const [globalState,changeState] = React.useState({});
   const [pieChart,changeData] = React.useState({});
+  const [dataReceived, setDataReceived] = React.useState(false);
+
+  
+
   
     React.useEffect(() =>{
 
@@ -47,7 +62,7 @@ export default function InfoPanelGlobal() {
             console.log(data["results"]);
             changeState(data.results[0]);
             console.log(data.results[0]);
-
+            
 
             
 const data1 = {
@@ -75,40 +90,49 @@ const data1 = {
 };
 
 changeData(data1);
+setDataReceived(true);
 
         }
 
         getData();
 
+
     },[])
  
+
+  if (dataReceived === false){
+
+    return <h1 className={classes.loading}>Loading</h1>
+  }
+
+  else{
 
   return (
     <div className={classes.root}>
       <h1 className = {classes.pie}>Global Stats</h1>
-      <Grid container spacing={3}>
+      <Grid  container spacing={3}>
       {Object.keys(globalState).map((key, ind) => {
                     return (
-                        <Grid item xs={12} sm={4} key={ind}>
-                            <Paper 
+                        <Grid  item xs={12} sm={4} key={ind}>
+                            < Paper  
                                 className={classes.paper} 
                                 elevation={3}>
-                                    <h3 className={classes.title}>
+                                    <h3  className={classes.title}>
                                         {key.replace(/_/g,' ')}
                                     </h3>
-                                    <h3>{globalState[key]}</h3>
+                                    <h3 >{globalState[key]}</h3>
                             </Paper>
                         </Grid>
                     )
                 })}
       </Grid>
 
-      <div className = {classes.pie}>
-        <h2>Covid19 Worldwide Graphical Data</h2>
+      <div  className = {classes.pie}>
+        <h2  >Covid19 Worldwide Graphical Data</h2>
         <Pie data={pieChart}/>
       </div>
     </div>
-  );
+  );}
 }
 
 

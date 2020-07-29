@@ -19,14 +19,15 @@ const useStyles = makeStyles((theme) => ({
         border: '2px solid #4CAF50',
     },
      
-  }
+  },
+  
  
 }));
 
 export default function GlobalStateSelector() {
   const classes = useStyles();
 
-  const {state,changeToGlobal,changeToCountry} = useContext(GlobalContext);
+  const {changeToGlobal,changeToCountry} = useContext(GlobalContext);
   
   console.log(global);
     const clickGlobal = () => {

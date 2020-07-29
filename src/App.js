@@ -2,8 +2,7 @@ import React from 'react';
 import Navbar from './components/Navbar.js'
 import {GlobalProvider} from './GlobalState.js'
 import PageSelector from './components/pageSelector.js'
-import './App.css';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 function App() {
